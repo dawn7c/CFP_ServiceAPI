@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class User : BaseEntity
+    public class Author : BaseEntity
     {
         public Guid UserId {  get; set; }
         
