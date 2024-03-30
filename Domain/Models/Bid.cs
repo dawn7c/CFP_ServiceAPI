@@ -9,7 +9,7 @@ namespace Domain.Models
 {
     public class Bid : BaseEntity
     {
-        public Author BidId { get; set; }
+        public Author Author { get; set; }
         public TypeOfActivity Activity { get; set; }
 
         [MaxLength(100)]

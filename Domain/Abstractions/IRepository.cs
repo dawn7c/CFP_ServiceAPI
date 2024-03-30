@@ -11,12 +11,13 @@ namespace Domain.Abstractions
     {
         Task<T> GetListOfActivity();
         Task CreateBidAsync(T entity);
-        Task<T> UpdateBid();
-        Task<T> DeleteBid();
-        Task<T> PostBid();
+        Task<bool> Update(T entity);
+        Task Delete(T entity);
+        Task<T> Send();
         Task<T> GetBidAfterDate(DateTime date);
         Task<T> GetCurrentBid(Author id);
         Task<T> GetBidId(Guid id);
+        
 
     }
 }

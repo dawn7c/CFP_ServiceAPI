@@ -8,7 +8,7 @@ namespace Domain.Models
 {
     public class Author : BaseEntity
     {
-        public Guid UserId {  get; set; }
+        public Guid AuthorId {  get; set; }
         
     }
 }

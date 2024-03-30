@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.LoggerConfig
 {
-    public class Logger
+    public class CustomLogger
     {
         public static void ConfigureLogger()
         {
@@ -16,7 +16,7 @@ namespace Infrastructure.LoggerConfig
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .WriteTo.Console()
-                .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("D:\\andrey loh (projects)\\CFP_Service\\logs\\log.txt", rollingInterval: RollingInterval.Infinite)
                 .CreateLogger();
         }
     }
