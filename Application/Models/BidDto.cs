@@ -1,54 +1,29 @@
 ﻿using Domain;
 using Domain.Abstractions;
 using Domain.Models;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Models
 {
-    public class BidDto<T> : IRepository<T> where T : BaseEntity
+    public class BidDto
     {
-        public Task<T> CreateBid()
-        {
-            throw new NotImplementedException();
-        }
+        public Author BidId { get; set; }
+        public TypeOfActivity Activity { get; set; }
 
-        public Task<T> DeleteBid()
-        {
-            throw new NotImplementedException();
-        }
+        [MaxLength(100)]
+        public string Name { get; set; }
 
-        public Task<T> GetBidAfterDate(DateTime date)
-        {
-            throw new NotImplementedException();
-        }
+        [MaxLength(300)]
+        public string? Description { get; set; }
 
-        public Task<T> GetBidId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        [MaxLength(1000)]
+        public string Outline { get; set; }
 
-        public Task<T> GetCurrentBid(Author id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> GetListOfActivity()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> PostBid()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> UpdateBid()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

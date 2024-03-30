@@ -10,7 +10,7 @@ namespace Domain.Abstractions
     public interface IRepository<T> where T : BaseEntity
     {
         Task<T> GetListOfActivity();
-        Task<T> CreateBid();
+        Task CreateBidAsync(T entity);
         Task<T> UpdateBid();
         Task<T> DeleteBid();
         Task<T> PostBid();
