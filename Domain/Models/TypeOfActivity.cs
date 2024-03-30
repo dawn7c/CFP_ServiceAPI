@@ -10,6 +10,6 @@ namespace Domain.Models
     {
         Report,
         MasterClass,
-        Discussion
+        Discussion 
     }
 }

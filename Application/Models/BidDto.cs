@@ -13,6 +13,15 @@ namespace Application.Models
 {
     public class BidDto
     {
+        //public BidDto(Author bidId, TypeOfActivity activity, string name, string? description, string outline)
+        //{
+        //    BidId = bidId;
+        //    Activity = activity;
+        //    Name = name;
+        //    Description = description;
+        //    Outline = outline;
+        //}
+
         public Author BidId { get; set; }
         public TypeOfActivity Activity { get; set; }
 

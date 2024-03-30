@@ -13,7 +13,6 @@ namespace Domain.Abstractions
         Task CreateBidAsync(T entity);
         Task<bool> Update(T entity);
         Task Delete(T entity);
-        Task<T> Send();
         Task<T> GetBidAfterDate(DateTime date);
         Task<T> GetCurrentBid(Author id);
         Task<T> GetBidId(Guid id);

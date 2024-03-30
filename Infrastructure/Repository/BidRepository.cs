@@ -46,9 +46,9 @@ namespace Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public Task<T> GetBidId(Guid id)
+        public async Task<T> GetBidId(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FindAsync(id);
         }
 
         public Task<T> GetCurrentBid(Author id)
@@ -57,11 +57,6 @@ namespace Infrastructure.Repository
         }
 
         public Task<T> GetListOfActivity()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> Send()
         {
             throw new NotImplementedException();
         }
