@@ -24,6 +24,10 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             CustomLogger.ConfigureLogger();
+            services.AddLogging(builder =>
+            {
+                builder.AddSerilog();
+            });
             services.AddControllers();
             
             services.AddScoped(typeof(IRepository<>), typeof(BidRepository<>));

@@ -16,17 +16,21 @@ namespace Web.Controllers
     {
         private readonly ApplicationContext _context;
         private readonly IRepository<Bid> _bidRepository;
+        private readonly ILogger<BidController> _logger;
 
-        public BidController(ApplicationContext context, IRepository<Bid> bidRepository)
+        public BidController(ApplicationContext context, IRepository<Bid> bidRepository, ILogger<BidController> logger)
         {
             _context = context;
             _bidRepository = bidRepository;
+            _logger = logger;
         }
+
+
 
         [HttpGet("bids/id")]
         public async Task<ActionResult<BidResponse>> GetBidAsync(Guid id)
         {
-            
+            _logger.LogInformation("GET request received");
             var bid = await _bidRepository.GetBidId(id);
             if (bid == null)
             {
@@ -38,7 +42,7 @@ namespace Web.Controllers
         [HttpPost("Create bid")]
         public async Task<IActionResult> BidAddAsync(BidRequest bidRequest)
         {
-            
+            _logger.LogInformation("Post request received");
             var bid = new Bid(bidRequest.Activity, bidRequest.Name, bidRequest.Description, bidRequest.Outline);
             await _bidRepository.CreateBidAsync(bid);
             return Ok(bid);
@@ -46,6 +50,7 @@ namespace Web.Controllers
         [HttpPost("Send bid")]
         public async Task<IActionResult> SendBidAsync(Guid bidId)
         {
+            _logger.LogInformation("Post request received");
             var bid = await _bidRepository.GetBidId(bidId);
             if (bid == null)
             {
@@ -58,6 +63,7 @@ namespace Web.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteBid(Guid id)
         {
+            _logger.LogInformation("Delete request received");
             var bid = await _bidRepository.GetBidId(id);
             if (bid is null)
                 return NotFound("Заявка не найдена");
@@ -69,7 +75,7 @@ namespace Web.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(Guid id, [FromBody] BidRequest request)
         {
-
+            _logger.LogInformation("Put request received");
             var bid = await _bidRepository.GetBidId(id);
 
             if (bid is null)
