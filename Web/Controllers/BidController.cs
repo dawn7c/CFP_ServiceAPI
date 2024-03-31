@@ -1,8 +1,9 @@
-﻿using Application.Models;
+﻿
 using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -17,12 +18,14 @@ namespace Web.Controllers
         private readonly ApplicationContext _context;
         private readonly IRepository<Bid> _bidRepository;
         private readonly ILogger<BidController> _logger;
+        private readonly IActivityRepository<Activity> _activityRepository;
 
-        public BidController(ApplicationContext context, IRepository<Bid> bidRepository, ILogger<BidController> logger)
+        public BidController(ApplicationContext context, IRepository<Bid> bidRepository, IActivityRepository<Activity> activityRepository, ILogger<BidController> logger)
         {
             _context = context;
             _bidRepository = bidRepository;
             _logger = logger;
+            _activityRepository = activityRepository;
         }
 
 
@@ -38,32 +41,58 @@ namespace Web.Controllers
             }
             return Ok(bid);
         }
-        [HttpGet("AfterDate")]
-        public async Task<ActionResult<BidResponse>> GetBidAfterDateAsync(DateTime time)
+        [HttpGet("applications")]
+        public async Task<ActionResult<BidResponse>> GetBidAfterDateAsync([FromQuery] DateTime submittedAfter)
         {
             _logger.LogInformation("GET request received");
-            var bid = await _bidRepository.GetBidAfterDate(time);
+            var bid = await _bidRepository.GetBidAfterDate(submittedAfter);
             return Ok(bid);
         }
 
-        [HttpGet("NotSubAndOlderDate")]
-        public async Task<ActionResult<BidResponse>> GetBidNotSubmittionAndOlderDate(DateTime time)
+        [HttpGet("application")]
+        public async Task<ActionResult<BidResponse>> GetBidNotSubmittionAndOlderDate(DateTime unsubmittedOlder)
         {
             _logger.LogInformation("GET request received");
-            var bid = await _bidRepository.GetNotSubAfterDate(time);
+            var bid = await _bidRepository.GetNotSubAfterDate(unsubmittedOlder);
             return Ok(bid);
 
         }
+        [HttpGet("users/{id}/currentapplication")]
+        public async Task<ActionResult<BidResponse>> GetBidByUser(Guid id)
+        {
+            _logger.LogInformation("GET request received");
+            var bid = await _bidRepository.GetNotSendedBidByUser(id);
+            if (bid == null)
+            {
+                return BadRequest("Заявки по данному пользователю не найдена ");
 
-        [HttpPost("CreateBid")]
+            }
+            return Ok(bid);
+
+        }
+        [HttpPost("applications")]
         public async Task<IActionResult> BidAddAsync(BidRequest bidRequest)
         {
             _logger.LogInformation("Post request received");
-            var bid = new Bid(bidRequest.Activity, bidRequest.Name, bidRequest.Description, bidRequest.Outline);
-            await _bidRepository.CreateBidAsync(bid);
-            return Ok(bid);
+            var check = await _bidRepository.CheckUnSendedBid(bidRequest.Author);
+            if (check)
+            {
+
+                var activity = await _activityRepository.GetActivityByName(bidRequest.Activity);
+                if (activity is null)
+                {
+                    return BadRequest("Не найдена данная активность");
+                }
+                var bid = new Bid(bidRequest.Author, activity.Id, bidRequest.Name, bidRequest.Description, bidRequest.Outline);
+                await _bidRepository.CreateBidAsync(bid);
+                return Ok(bid);
+            }
+            else
+            {
+                return BadRequest("У данного пользователя уже есть незакрытая заявка");
+            }
         }
-        [HttpPost("SendBid")]
+        [HttpPost("applications/{bidId}/submit")]
         public async Task<IActionResult> SendBidAsync(Guid bidId)
         {
             _logger.LogInformation("Post request received");
@@ -82,19 +111,24 @@ namespace Web.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("applications/{id}")]
         public async Task<IActionResult> DeleteBid(Guid id)
         {
             _logger.LogInformation("Delete request received");
             var bid = await _bidRepository.GetBidId(id);
+
             if (bid is null)
                 return NotFound("Заявка не найдена");
+            if (bid.IsSend)
+            {
+                return BadRequest("Нельзя удалить отправленную заявку");
 
+            }
             await _bidRepository.Delete(bid);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("applications/{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] BidRequest request)
         {
             _logger.LogInformation("Put request received");
@@ -102,8 +136,12 @@ namespace Web.Controllers
 
             if (bid is null)
                 return NotFound("Заявка не найдена");
+            if (bid.IsSend)
+            {
+                return BadRequest("Нельзя обновить отправленную заявку");
 
-            bid.Activity = request.Activity;
+            }
+            bid.ActivityId = (await _activityRepository.GetActivityByName(request.Activity)).Id;
             bid.Name = request.Name;
             bid.Description = request.Description;
             bid.Outline = request.Outline;
@@ -112,8 +150,18 @@ namespace Web.Controllers
 
             return Ok();
         }
+        [HttpGet("activities")]
+        public async Task<ActionResult<List<ActivityResponse>>> GetAllActivities()
+        {
+            _logger.LogInformation("GET request received");
+            var activites = await _activityRepository.GetListOfActivity();
+            if (activites == null)
+            {
+                return NotFound("Активность не найдена");
+            }
+            return Ok(activites);
+        }
 
-        
 
     }
 }

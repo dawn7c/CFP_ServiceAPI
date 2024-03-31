@@ -15,10 +15,10 @@ namespace Domain.Models
         {
         }
 
-        public Bid(TypeOfActivity activity, string name, string? description, string outline)
+        public Bid( Guid author, int activityId, string name, string? description, string outline)
         {
-            Author = Guid.NewGuid();
-            Activity = activity;
+            Author = author;
+            ActivityId = activityId;
             Name = name;
             Description = description;
             Outline = outline;
@@ -27,7 +27,10 @@ namespace Domain.Models
 
         
         public Guid Author { get; set; }
-        public TypeOfActivity Activity { get; set; }
+
+        public int ActivityId { get; set; }
+        public Activity Activity { get; set; }
+
 
         [MaxLength(100)]
         public string Name {  get; set; }

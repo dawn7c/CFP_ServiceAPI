@@ -50,7 +50,19 @@ namespace Infrastructure.Repository
             return await _dbSet.Where(b => b.CreateDateTime > date.ToUniversalTime() && !b.IsSend).ToListAsync();
 
         }
+        public async Task<T> GetNotSendedBidByUser(Guid id)
+        {
 
+            return await _dbSet.Where(b => b.Author == id && !b.IsSend).FirstOrDefaultAsync();
+
+        }
+        public async Task<bool> CheckUnSendedBid(Guid id)
+        {
+
+             var bids = await _dbSet.Where(b => b.Author == id && !b.IsSend).ToListAsync();
+             return bids.Count() > 1 ? false : true;
+
+        }
         public async Task<T> GetBidId(Guid id)
         {
             return await _dbSet.FindAsync(id);
@@ -58,10 +70,7 @@ namespace Infrastructure.Repository
 
         
 
-        public async Task<T> GetListOfActivity()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public async Task<bool> Update(T entity)
         {
@@ -74,6 +83,9 @@ namespace Infrastructure.Repository
             return true;
         }
 
-        
+        public Task<T> GetListOfActivity()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

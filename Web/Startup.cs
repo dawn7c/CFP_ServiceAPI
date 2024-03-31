@@ -32,6 +32,8 @@ namespace Web
             services.AddControllers();
             
             services.AddScoped(typeof(IRepository<>), typeof(BidRepository<>));
+            services.AddScoped(typeof(IActivityRepository<>), typeof(ActivityRepository<>));
+
 
             services.AddSwaggerGen(c =>
             {

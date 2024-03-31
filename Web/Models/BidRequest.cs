@@ -6,7 +6,7 @@ namespace Web.Models
     public class BidRequest
     {
         public Guid Author { get; set; }
-        public TypeOfActivity Activity { get; set; }
+        public string Activity { get; set; }
 
         [MaxLength(100)]
         public string Name { get; set; }
