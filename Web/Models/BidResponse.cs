@@ -16,5 +16,8 @@ namespace Web.Models
 
         [MaxLength(1000)]
         public string Outline { get; set; }
+        public DateTime CreateDateTime { get; set; }
+        public bool IsSend { get; set; }
+        public DateTime? SendDateTime { get; set; }
     }
 }

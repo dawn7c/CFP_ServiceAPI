@@ -10,6 +10,7 @@ namespace Domain.Models
 {
     public class Bid : BaseEntity
     {
+        
         public Bid()
         {
         }
@@ -21,9 +22,10 @@ namespace Domain.Models
             Name = name;
             Description = description;
             Outline = outline;
+            CreateDateTime = DateTime.UtcNow;
         }
 
-
+        
         public Guid Author { get; set; }
         public TypeOfActivity Activity { get; set; }
 
@@ -35,6 +37,10 @@ namespace Domain.Models
 
         [MaxLength (1000)]
         public string Outline { get; set; }
+        public DateTime CreateDateTime { get; set; }
+        public bool IsSend { get; set; }
+        public DateTime? SendDateTime {  get; set; }
+
         
     }
 }

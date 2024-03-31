@@ -38,7 +38,6 @@ namespace Web
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CFP_Service", Version = "1.0" });
             });
             var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
-            //var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseNpgsql(connectionString));
 

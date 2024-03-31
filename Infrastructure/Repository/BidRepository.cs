@@ -2,16 +2,13 @@
 using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Repository
 {
-   public class BidRepository<T> : IRepository<T> where T : BaseEntity
+   public class BidRepository<T> : IRepository<T> where T : Bid
    {
         private readonly ApplicationContext _context;
         private readonly DbSet<T> _dbSet;
@@ -41,9 +38,17 @@ namespace Infrastructure.Repository
         }
 
 
-        public Task<T> GetBidAfterDate(DateTime date)
+        public async Task<List<T>> GetBidAfterDate(DateTime date)
         {
-            throw new NotImplementedException();
+
+            return await _dbSet.Where(b => b.SendDateTime > date.ToUniversalTime()).ToListAsync();
+            
+        }
+        public async Task<List<T>> GetNotSubAfterDate(DateTime date)
+        {
+
+            return await _dbSet.Where(b => b.CreateDateTime > date.ToUniversalTime() && !b.IsSend).ToListAsync();
+
         }
 
         public async Task<T> GetBidId(Guid id)
@@ -51,12 +56,9 @@ namespace Infrastructure.Repository
             return await _dbSet.FindAsync(id);
         }
 
-        public Task<T> GetCurrentBid(Author id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        public Task<T> GetListOfActivity()
+        public async Task<T> GetListOfActivity()
         {
             throw new NotImplementedException();
         }
@@ -71,5 +73,7 @@ namespace Infrastructure.Repository
             await _context.SaveChangesAsync();
             return true;
         }
+
+        
     }
 }

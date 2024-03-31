@@ -38,8 +38,24 @@ namespace Web.Controllers
             }
             return Ok(bid);
         }
+        [HttpGet("AfterDate")]
+        public async Task<ActionResult<BidResponse>> GetBidAfterDateAsync(DateTime time)
+        {
+            _logger.LogInformation("GET request received");
+            var bid = await _bidRepository.GetBidAfterDate(time);
+            return Ok(bid);
+        }
 
-        [HttpPost("Create bid")]
+        [HttpGet("NotSubAndOlderDate")]
+        public async Task<ActionResult<BidResponse>> GetBidNotSubmittionAndOlderDate(DateTime time)
+        {
+            _logger.LogInformation("GET request received");
+            var bid = await _bidRepository.GetNotSubAfterDate(time);
+            return Ok(bid);
+
+        }
+
+        [HttpPost("CreateBid")]
         public async Task<IActionResult> BidAddAsync(BidRequest bidRequest)
         {
             _logger.LogInformation("Post request received");
@@ -47,14 +63,20 @@ namespace Web.Controllers
             await _bidRepository.CreateBidAsync(bid);
             return Ok(bid);
         }
-        [HttpPost("Send bid")]
+        [HttpPost("SendBid")]
         public async Task<IActionResult> SendBidAsync(Guid bidId)
         {
             _logger.LogInformation("Post request received");
             var bid = await _bidRepository.GetBidId(bidId);
-            if (bid == null)
+            if (bid.IsSend == true)
             {
-                return NotFound("Заявка не найдена"); 
+                return NotFound("Заявка была отправлена ранее");
+            }
+            else
+            {
+                bid.IsSend = true;
+                bid.SendDateTime = DateTime.UtcNow;
+                await _bidRepository.Update(bid);
             }
 
             return Ok();
