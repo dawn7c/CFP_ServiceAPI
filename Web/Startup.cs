@@ -23,6 +23,7 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            
             CustomLogger.ConfigureLogger();
             services.AddLogging(builder =>
             {
@@ -36,7 +37,8 @@ namespace Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CFP_Service", Version = "1.0" });
             });
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+            //var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseNpgsql(connectionString));
 
