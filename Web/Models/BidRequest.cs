@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models

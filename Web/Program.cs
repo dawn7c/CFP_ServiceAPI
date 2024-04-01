@@ -1,6 +1,4 @@
 
-using Serilog;
-
 namespace Web
 {
     public class Program

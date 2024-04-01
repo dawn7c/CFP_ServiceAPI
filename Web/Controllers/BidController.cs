@@ -1,12 +1,7 @@
-﻿
-using Domain.Abstractions;
+﻿using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Web.Models;
 
 namespace Web.Controllers
@@ -27,8 +22,6 @@ namespace Web.Controllers
             _logger = logger;
             _activityRepository = activityRepository;
         }
-
-
 
         [HttpGet("bids/id")]
         public async Task<ActionResult<BidResponse>> GetBidAsync(Guid id)

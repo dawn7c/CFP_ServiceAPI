@@ -1,13 +1,9 @@
 ﻿using Domain.Abstractions;
 using Infrastructure.DatabaseContext;
 using Infrastructure.Repository;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.Core;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using Infrastructure.LoggerConfig;
 
 namespace Web
@@ -23,7 +19,6 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
             CustomLogger.ConfigureLogger();
             services.AddLogging(builder =>
             {
@@ -34,7 +29,6 @@ namespace Web
             services.AddScoped(typeof(IRepository<>), typeof(BidRepository<>));
             services.AddScoped(typeof(IActivityRepository<>), typeof(ActivityRepository<>));
 
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CFP_Service", Version = "1.0" });
@@ -42,7 +36,6 @@ namespace Web
             var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseNpgsql(connectionString));
-
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -67,7 +60,6 @@ namespace Web
 
             app.UseSwagger();
             app.UseSwaggerUI();
-
         }
     }
 }
