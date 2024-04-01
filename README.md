@@ -9,11 +9,11 @@
 5. Запустите ваш сервис
 
 Технологии
-ASP.NET Core 8
-Entity Framework Core 8
-Интерфейс Swagger
-PostgreSQL-сервер
-Serilog
-xUnit
+ASP.NET Core 8;
+Entity Framework Core;
+Интерфейс Swagger;
+PostgreSQL-сервер;
+Serilog;
+xUnit;
 
 
