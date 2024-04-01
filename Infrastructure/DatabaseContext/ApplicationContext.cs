@@ -11,6 +11,10 @@ namespace Infrastructure.DatabaseContext
 {
     public class ApplicationContext : DbContext
     {
+        public ApplicationContext()
+        {
+        }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureCreated();
