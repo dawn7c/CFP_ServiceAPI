@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace CfpService.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240331155401_InitialCreate")]
+    [Migration("20240412155152_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,52 +25,14 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Models.Activity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Activity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Доклад, 35-45 минут",
-                            Type = "Report"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Мастеркласс, 1-2 часа",
-                            Type = "Masterclass"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Дискуссия / круглый стол, 40-50 минут",
-                            Type = "Discussion"
-                        });
-                });
-
-            modelBuilder.Entity("Domain.Models.Bid", b =>
+            modelBuilder.Entity("CfpService.Domain.Models.Application", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<int>("Activity")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ActivityId")
                         .HasColumnType("integer");
@@ -103,20 +65,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ActivityId");
-
-                    b.ToTable("Bids");
-                });
-
-            modelBuilder.Entity("Domain.Models.Bid", b =>
-                {
-                    b.HasOne("Domain.Models.Activity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
+                    b.ToTable("Applications");
                 });
 #pragma warning restore 612, 618
         }

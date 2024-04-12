@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
-    public class BidRequest
+    public class ApplicationRequest
     {
         public Guid Author { get; set; }
         public string Activity { get; set; }

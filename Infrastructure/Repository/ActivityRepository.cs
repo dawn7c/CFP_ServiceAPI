@@ -10,25 +10,29 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {
-    public class ActivityRepository<T> : IActivity
+    public class ActivityRepository : IActivity
     {
-        
-        private readonly DbSet<T> _dbSet;
 
-        public ActivityRepository(ApplicationContext context)
-        {
-            _context = context;
-            _dbSet = _context.Set<T>();
-        }
+        //private readonly DbSet<T> _dbSet;
 
-        public async Task<List<T>> GetListOfActivity()
-        {
-            return await _dbSet.ToListAsync();
+        //public ActivityRepository(ApplicationContext context)
+        //{
+        //    _context = context;
+        //    _dbSet = _context.Set<T>();
+        //}
 
-        }
-        public async Task GetActivityByName(string name)
+        //public async Task<List<T>> GetListOfActivity()
+        //{
+        //    return await _dbSet.ToListAsync();
+
+        //}
+        //public async Task GetActivityByName(string name)
+        //{
+        //    return await _dbSet.Where(e=> e.Type == name).FirstOrDefaultAsync();
+        //}
+        public Task GetActivityByName(string activityName)
         {
-            return await _dbSet.Where(e=> e.Type == name).FirstOrDefaultAsync();
+            throw new NotImplementedException();
         }
     }
 }

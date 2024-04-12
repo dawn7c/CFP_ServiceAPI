@@ -1,18 +1,15 @@
-﻿using CfpService.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Models;
 
 namespace CfpService.DataAccess.DbConfiguration
 {
-    public class ApplicationConfiguration : IEntityTypeConfiguration<Application>
+    public class ApplicationConfiguration : IEntityTypeConfiguration<Domain.Models.Application>
     {
-        public void Configure(EntityTypeBuilder<Application> builder)
+        public void Configure(EntityTypeBuilder<Domain.Models.Application> builder)
         {
+            builder.HasKey(k => k.Id);
+
             builder.Property(p => p.Name)
             .HasMaxLength(100);
 

@@ -2,7 +2,7 @@
 
 namespace Web.Models
 {
-    public class BidResponse
+    public class ApplicationResponse
     {
         public Guid Author { get; set; }
         public string Activity { get; set; }
@@ -16,7 +16,7 @@ namespace Web.Models
         [MaxLength(1000)]
         public string Outline { get; set; }
 
-        public BidResponse(Guid author, string activity, string name, string? description, string outline)
+        public ApplicationResponse(Guid author, string activity, string name, string? description, string outline)
         {
             Author = author;
             Activity = activity;

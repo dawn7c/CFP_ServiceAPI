@@ -32,8 +32,8 @@ namespace Web
                    options.JsonSerializerOptions.Converters.Add(new ActivityConverter());
                });
             
-            services.AddScoped(typeof(IApplication), typeof(ApplicationRepository<>));
-            services.AddScoped(typeof(IActivity), typeof(ActivityRepository<>));
+            services.AddScoped(typeof(IApplication), typeof(ApplicationRepository));
+            services.AddScoped(typeof(IActivity), typeof(ActivityRepository));
 
             services.AddSwaggerGen(c =>
             {

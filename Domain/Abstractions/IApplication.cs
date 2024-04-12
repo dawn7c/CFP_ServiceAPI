@@ -6,13 +6,13 @@ namespace Domain.Abstractions
 {
     public interface IApplication
     {
-        Task CreateBidAsync(Application entity);
+        Task CreateApplicationAsync(Application entity);
         Task<bool> Update(Application entity);
         Task Delete(Application entity);
         Task<List<Application>> GetBidAfterDate(DateTime date);
         Task<List<Application>> GetNotSubAfterDate(DateTime date);
-        Task<Application> GetBidId(Guid id);
-        Task<Application> GetNotSendedBidByUser(Guid id);
-        Task<bool> CheckUnSendedBid(Guid id);
+        Task<Application> GetApplicationId(Guid id);
+        Task<Application> GetNotSendedApplicationByUser(Guid id);
+        Task<bool> CheckUnSendedApplication(Guid id);
     }
 }

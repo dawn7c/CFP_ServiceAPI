@@ -20,7 +20,7 @@ namespace CfpService.Domain.Models
             CreateDateTime = DateTime.UtcNow;
         }
 
-        public readonly Guid BaseEntity;
+        public Guid Id { get; init; }
         public Guid Author { get; init; }
         public int ActivityId { get; init; }
         public Activity Activity { get; init; }
