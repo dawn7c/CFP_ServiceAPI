@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Activity 
+    public enum Activity
     {
-        public readonly Guid BaseEntity;
-
-        public int Id { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
-    }
+       Report,
+       Masterclass,
+       Discussion
+    }        
 }

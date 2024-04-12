@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {
-    public class ActivityRepository<T> : IActivity<T> where T : Activity
+    public class ActivityRepository<T> : IActivity
     {
-        private readonly ApplicationContext _context;
+        
         private readonly DbSet<T> _dbSet;
 
         public ActivityRepository(ApplicationContext context)
@@ -26,7 +26,7 @@ namespace Infrastructure.Repository
             return await _dbSet.ToListAsync();
 
         }
-        public async Task<T> GetActivityByName(string name)
+        public async Task GetActivityByName(string name)
         {
             return await _dbSet.Where(e=> e.Type == name).FirstOrDefaultAsync();
         }

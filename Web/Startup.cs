@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Infrastructure.LoggerConfig;
 using Microsoft.Extensions.Configuration;
+using CfpService.Application.Convertors;
 
 namespace Web
 {
@@ -25,10 +26,14 @@ namespace Web
             {
                 builder.AddSerilog();
             });
-            services.AddControllers();
+            services.AddControllers()
+               .AddJsonOptions(options =>
+               {
+                   options.JsonSerializerOptions.Converters.Add(new ActivityConverter());
+               });
             
-            services.AddScoped(typeof(IApplication<>), typeof(ApplicationRepository<>));
-            services.AddScoped(typeof(IActivity<>), typeof(ActivityRepository<>));
+            services.AddScoped(typeof(IApplication), typeof(ApplicationRepository<>));
+            services.AddScoped(typeof(IActivity), typeof(ActivityRepository<>));
 
             services.AddSwaggerGen(c =>
             {

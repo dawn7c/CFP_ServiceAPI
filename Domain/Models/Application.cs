@@ -21,23 +21,15 @@ namespace CfpService.Domain.Models
         }
 
         public readonly Guid BaseEntity;
-        public Guid Author { get; set; }
-
-        public int ActivityId { get; set; }
-        public Activity Activity { get; set; }
-
-
-        [MaxLength(100)]
-        public string Name {  get; set; }
-
-        [MaxLength (300)]
-        public string? Description {  get; set; }
-
-        [MaxLength (1000)]
-        public string Outline { get; set; }
-        public DateTime CreateDateTime { get; set; }
-        public bool IsSend { get; set; }
-        public DateTime? SendDateTime {  get; set; }
+        public Guid Author { get; init; }
+        public int ActivityId { get; init; }
+        public Activity Activity { get; init; }
+        public string Name {  get; init; }
+        public string? Description {  get; init; }
+        public string Outline { get; init; }
+        public DateTime CreateDateTime { get; init; }
+        public bool IsSend { get; init; }
+        public DateTime? SendDateTime {  get; init; }
 
         
     }

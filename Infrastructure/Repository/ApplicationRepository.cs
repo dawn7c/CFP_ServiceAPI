@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-   public class ApplicationRepository<T> : IApplication<T> where T : Bid
+   public class ApplicationRepository : IApplication
    {
         private readonly ApplicationContext _context;
         private readonly DbSet<T> _dbSet;
@@ -15,7 +15,7 @@ namespace Infrastructure.Repository
         public ApplicationRepository(ApplicationContext context)
         {
             _context = context;
-            _dbSet = _context.Set<T>();
+            _dbSet = _context.Set();
         }
 
         private bool IsExist(Guid id, out T entity)
