@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-   public class BidRepository<T> : IRepository<T> where T : Bid
+   public class ApplicationRepository<T> : IApplication<T> where T : Bid
    {
         private readonly ApplicationContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public BidRepository(ApplicationContext context)
+        public ApplicationRepository(ApplicationContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

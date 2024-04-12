@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {
-    public class ActivityRepository<T> : IActivityRepository<T> where T : Activity
+    public class ActivityRepository<T> : IActivity<T> where T : Activity
     {
         private readonly ApplicationContext _context;
         private readonly DbSet<T> _dbSet;

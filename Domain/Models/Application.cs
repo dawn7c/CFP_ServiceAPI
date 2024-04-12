@@ -1,21 +1,16 @@
-﻿using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
-using System;
-using System.Collections.Generic;
+﻿using Domain.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace CfpService.Domain.Models
 {
-    public class Bid : BaseEntity
+    public class Application 
     {
         
-        public Bid()
+        public Application()
         {
         }
 
-        public Bid( Guid author, int activityId, string name, string? description, string outline)
+        public Application(Guid author, int activityId, string name, string? description, string outline)
         {
             Author = author;
             ActivityId = activityId;
@@ -25,7 +20,7 @@ namespace Domain.Models
             CreateDateTime = DateTime.UtcNow;
         }
 
-        
+        public readonly Guid BaseEntity;
         public Guid Author { get; set; }
 
         public int ActivityId { get; set; }

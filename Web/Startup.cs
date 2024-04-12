@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Infrastructure.LoggerConfig;
+using Microsoft.Extensions.Configuration;
 
 namespace Web
 {
@@ -26,14 +27,15 @@ namespace Web
             });
             services.AddControllers();
             
-            services.AddScoped(typeof(IRepository<>), typeof(BidRepository<>));
-            services.AddScoped(typeof(IActivityRepository<>), typeof(ActivityRepository<>));
+            services.AddScoped(typeof(IApplication<>), typeof(ApplicationRepository<>));
+            services.AddScoped(typeof(IActivity<>), typeof(ActivityRepository<>));
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CFP_Service", Version = "1.0" });
             });
-            var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseNpgsql(connectionString));
         }

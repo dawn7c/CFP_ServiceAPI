@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using CfpService.Domain.Models;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DatabaseContext
@@ -13,7 +14,7 @@ namespace Infrastructure.DatabaseContext
             Database.EnsureCreated();
         }
 
-        public DbSet<Bid> Bids { get; set; }
+        public DbSet<Application> Applications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

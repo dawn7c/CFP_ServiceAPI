@@ -1,7 +1,7 @@
 ﻿
 namespace Domain.Abstractions
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IApplication
     {
         Task CreateBidAsync(T entity);
         Task<bool> Update(T entity);

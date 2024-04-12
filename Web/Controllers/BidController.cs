@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions;
+﻿using CfpService.Domain.Models;
+using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,11 @@ namespace Web.Controllers
     public class BidController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        private readonly IRepository<Bid> _bidRepository;
+        private readonly IApplication<Application> _bidRepository;
         private readonly ILogger<BidController> _logger;
-        private readonly IActivityRepository<Activity> _activityRepository;
+        private readonly IActivity<Activity> _activityRepository;
 
-        public BidController(ApplicationContext context, IRepository<Bid> bidRepository, IActivityRepository<Activity> activityRepository, ILogger<BidController> logger)
+        public BidController(ApplicationContext context, IApplication<Application> bidRepository, IActivity<Activity> activityRepository, ILogger<BidController> logger)
         {
             _context = context;
             _bidRepository = bidRepository;
@@ -76,7 +77,7 @@ namespace Web.Controllers
                 {
                     return BadRequest("Не найдена данная активность");
                 }
-                var bid = new Bid(bidRequest.Author, activity.Id, bidRequest.Name, bidRequest.Description, bidRequest.Outline);
+                var bid = new Application(bidRequest.Author, activity.Id, bidRequest.Name, bidRequest.Description, bidRequest.Outline);
                 await _bidRepository.CreateBidAsync(bid);
                 return Ok(bid);
             }
