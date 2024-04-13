@@ -31,9 +31,6 @@ namespace CfpService.DataAccess.Migrations
                     b.Property<int>("Activity")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("integer");
-
                     b.Property<Guid>("Author")
                         .HasColumnType("uuid");
 

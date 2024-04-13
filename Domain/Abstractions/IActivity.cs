@@ -1,9 +1,11 @@
 ﻿
+using Domain.Models;
+
 namespace Domain.Abstractions
 {
     public interface IActivity
     {
-        //Task<List>> IActivity();
-        Task GetActivityByName(string activityName);
+        Task<List<object>> GetListOfActivityWithDescription();
+        string GetActivityDescription(Activity activity);
     }
 }

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CfpService.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240412155152_InitialCreate")]
+    [Migration("20240413085830_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,9 +32,6 @@ namespace CfpService.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<int>("Activity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ActivityId")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("Author")

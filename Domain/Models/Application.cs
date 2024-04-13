@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace CfpService.Domain.Models
 {
@@ -10,10 +11,11 @@ namespace CfpService.Domain.Models
         {
         }
 
-        public Application(Guid author, int activityId, string name, string? description, string outline)
+        public Application(Activity activity, string name, string? description, string outline)
         {
-            Author = author;
-            ActivityId = activityId;
+            
+            Author = Guid.NewGuid();
+            Activity = activity;
             Name = name;
             Description = description;
             Outline = outline;
@@ -22,15 +24,16 @@ namespace CfpService.Domain.Models
 
         public Guid Id { get; init; }
         public Guid Author { get; init; }
-        public int ActivityId { get; init; }
-        public Activity Activity { get; init; }
-        public string Name {  get; init; }
-        public string? Description {  get; init; }
-        public string Outline { get; init; }
-        public DateTime CreateDateTime { get; init; }
-        public bool IsSend { get; init; }
-        public DateTime? SendDateTime {  get; init; }
+        public Activity Activity { get;  set; }
+        public string Name {  get;  set; }
+        public string? Description {  get;  set; }
+        public string Outline { get;  set; }
 
-        
+        [JsonIgnore]
+        public DateTime CreateDateTime { get; private set; }
+        [JsonIgnore]
+        public bool IsSend { get;   set; }
+        [JsonIgnore]
+        public DateTime? SendDateTime {  get;   set; }
     }
 }

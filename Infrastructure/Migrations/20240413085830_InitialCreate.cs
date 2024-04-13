@@ -17,7 +17,6 @@ namespace CfpService.DataAccess.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Author = table.Column<Guid>(type: "uuid", nullable: false),
-                    ActivityId = table.Column<int>(type: "integer", nullable: false),
                     Activity = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),

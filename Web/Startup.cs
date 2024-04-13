@@ -7,6 +7,7 @@ using Serilog;
 using Infrastructure.LoggerConfig;
 using Microsoft.Extensions.Configuration;
 using CfpService.Application.Convertors;
+using CfpService.DataAccess.ActivityRepository;
 
 namespace Web
 {

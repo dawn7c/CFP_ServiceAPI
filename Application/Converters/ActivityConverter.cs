@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace CfpService.Application.Convertors
     {
         public override Activity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+
             if (reader.TokenType != JsonTokenType.String)
             {
                 throw new JsonException($"Unexpected token type: {reader.TokenType}");

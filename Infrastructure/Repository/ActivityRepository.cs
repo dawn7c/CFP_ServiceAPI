@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions;
+﻿using CfpService.Application.Convertors;
+using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
@@ -8,31 +9,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Repository
+namespace CfpService.DataAccess.ActivityRepository
 {
     public class ActivityRepository : IActivity
     {
 
-        //private readonly DbSet<T> _dbSet;
-
-        //public ActivityRepository(ApplicationContext context)
-        //{
-        //    _context = context;
-        //    _dbSet = _context.Set<T>();
-        //}
-
-        //public async Task<List<T>> GetListOfActivity()
-        //{
-        //    return await _dbSet.ToListAsync();
-
-        //}
-        //public async Task GetActivityByName(string name)
-        //{
-        //    return await _dbSet.Where(e=> e.Type == name).FirstOrDefaultAsync();
-        //}
-        public Task GetActivityByName(string activityName)
+        public async Task<List<object>> GetListOfActivityWithDescription()
         {
-            throw new NotImplementedException();
+            var activities = new List<object>();
+
+            foreach (Activity activity in Enum.GetValues(typeof(Activity)))
+            {
+                string description = GetActivityDescription(activity);
+                activities.Add(new { activity = activity.ToString(), description });
+            }
+
+            return activities;
         }
+
+        public string GetActivityDescription(Activity activity)
+        {
+            switch (activity)
+            {
+                case Activity.Report:
+                    return "Доклад, 35-45 минут";
+                case Activity.Masterclass:
+                    return "Мастеркласс, 1-2 часа";
+                case Activity.Discussion:
+                    return "Дискуссия / круглый стол, 40-50 минут";
+                default:
+                    return string.Empty;
+            }
+        }
+
     }
 }

@@ -1,13 +1,15 @@
-﻿using CfpService.Domain.Models;
+﻿using CfpService.Api.Models;
+using CfpService.Domain.Models;
 using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Web.Models;
 
 namespace Web.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
     public class ApplicationController : ControllerBase
     {
@@ -24,7 +26,7 @@ namespace Web.Controllers
             _activityRepository = activityRepository;
         }
 
-        [HttpGet("application/id")]
+        [HttpGet("application/{id}")]
         public async Task<ActionResult<ApplicationResponse>> GetApplicationAsync(Guid id)
         {
             _logger.LogInformation("GET request received");
@@ -44,7 +46,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("application")]
-        public async Task<ActionResult<ApplicationResponse>> GetBidNotSubmittionAndOlderDate(DateTime unsubmittedOlder)
+        public async Task<ActionResult<ApplicationResponse>> GetBidNotSubmittionAndOlderDateAsync(DateTime unsubmittedOlder)
         {
             _logger.LogInformation("GET request received");
             var bid = await _applicationRepository.GetNotSubAfterDate(unsubmittedOlder);
@@ -52,7 +54,7 @@ namespace Web.Controllers
 
         }
         [HttpGet("users/{id}/currentapplication")]
-        public async Task<ActionResult<ApplicationResponse>> GetApplicationByUser(Guid id)
+        public async Task<ActionResult<ApplicationResponse>> GetApplicationByUserAsync(Guid id)
         {
             _logger.LogInformation("GET request received");
             var bid = await _applicationRepository.GetNotSendedApplicationByUser(id);
@@ -64,49 +66,63 @@ namespace Web.Controllers
             return Ok(bid);
 
         }
-        //[HttpPost("applications")]
-        //public async Task<IActionResult> ApplicationAddAsync(ApplicationRequest bidRequest)
-        //{
-        //    _logger.LogInformation("Post request received");
-        //    var check = await _applicationRepository.CheckUnSendedApplication(bidRequest.Author);
-        //    if (check)
-        //    {
 
-        //        var activity = await _activityRepository.GetActivityByName(bidRequest.Activity);
-        //        if (activity is null)
-        //        {
-        //            return BadRequest("Не найдена данная активность");
-        //        }
-        //        var bid = new Application(bidRequest.Author, activity.Id, bidRequest.Name, bidRequest.Description, bidRequest.Outline);
-        //        await _bidRepository.CreateBidAsync(bid);
-        //        return Ok(bid);
-        //    }
-        //    else
-        //    {
-        //        return BadRequest("У данного пользователя уже есть незакрытая заявка");
-        //    }
-        //}
-        //[HttpPost("applications/{bidId}/submit")]
-        //public async Task<IActionResult> SendApplicationAsync(Guid bidId)
-        //{
-        //    _logger.LogInformation("Post request received");
-        //    var bid = await _applicationRepository.GetApplicationId(bidId);
-        //    if (bid.IsSend == true)
-        //    {
-        //        return NotFound("Заявка была отправлена ранее");
-        //    }
-        //    else
-        //    {
-        //        bid.IsSend = true;
-        //        bid.SendDateTime = DateTime.UtcNow;
-        //        await _applicationRepository.Update(bid);
-        //    }
+        [HttpPost("applications")]
+        public async Task<IActionResult> ApplicationAddAsync(ApplicationCreateRequest applicationRequest)
+        {
+            _logger.LogInformation("Post request received");
 
-        //    return Ok();
-        //}
+            //// Проверяем, существует ли активность с указанным именем
+            //if (!Enum.TryParse(typeof(Activity),applicationRequest.Activity.ToString(), true, out object activityEnum))
+            //{
+            //    return BadRequest("Указанная активность не найдена");
+            //}
+
+            //// Проверяем, существует ли активность с указанным именем в enum
+            //if (!Enum.IsDefined(typeof(Activity), activityEnum))
+            //{
+            //    return BadRequest("Указанная активность не найдена");
+            //}
+
+            // Получаем описание активности
+            //var activityDescription = await _activityRepository.GetActivityDescription(activityEnum);
+
+            // Проверяем, есть ли незакрытая заявка у указанного пользователя
+            var check = await _applicationRepository.CheckUnSendedApplication(applicationRequest.Author);
+            if (check)
+            {
+                // Создаем новую заявку
+                var bid = new Application(applicationRequest.Activity, applicationRequest.Name, applicationRequest.Description, applicationRequest.Outline);
+                await _applicationRepository.CreateApplicationAsync(bid);
+                return Ok(bid);
+            }
+            else
+            {
+                return BadRequest("У данного пользователя уже есть незакрытая заявка");
+            }
+        }
+
+        [HttpPost("applications/{id}/submit")]
+        public async Task<IActionResult> SendApplicationAsync(Guid id)
+        {
+            _logger.LogInformation("Post request received");
+            var bid = await _applicationRepository.GetApplicationId(id);
+            if (bid.IsSend == true)
+            {
+                return NotFound("Заявка была отправлена ранее");
+            }
+            else
+            {
+                bid.IsSend = true;
+                bid.SendDateTime = DateTime.UtcNow;
+                await _applicationRepository.UpdateDataAsync(bid);
+            }
+
+            return Ok("OK,200");
+        }
 
         [HttpDelete("applications/{id}")]
-        public async Task<IActionResult> DeleteBid(Guid id)
+        public async Task<IActionResult> DeleteApplicationAsync(Guid id)
         {
             _logger.LogInformation("Delete request received");
             var bid = await _applicationRepository.GetApplicationId(id);
@@ -119,43 +135,59 @@ namespace Web.Controllers
 
             }
             await _applicationRepository.Delete(bid);
-            return Ok();
+            return Ok("OK,200");
         }
 
-        //[HttpPut("applications/{id}")]
-        //public async Task<IActionResult> Update(Guid id, [FromBody] ApplicationRequest request)
-        //{
-        //    _logger.LogInformation("Put request received");
-        //    var bid = await _applicationRepository.GetApplicationId(id);
+        [HttpPut("applications/{id}")]
+        public async Task<IActionResult> UpdateApplicationAsync(Guid id, [FromBody] ApplicationUpdateRequest request)
+        {
+            _logger.LogInformation("Put request received");
+            var application = await _applicationRepository.GetApplicationId(id);
 
-        //    if (bid is null)
-        //        return NotFound("Заявка не найдена");
-        //    if (bid.IsSend)
-        //    {
-        //        return BadRequest("Нельзя обновить отправленную заявку");
+            if (application == null)
+                return NotFound("Заявка не найдена");
 
-        //    }
-        //    bid.ActivityId = (await _activityRepository.GetActivityByName(request.Activity)).Id;
-        //    bid.Name = request.Name;
-        //    bid.Description = request.Description;
-        //    bid.Outline = request.Outline;
+            if (application.IsSend == true)
+            {
+                return BadRequest("Нельзя обновить отправленную заявку");
+            }
 
-        //    await _bidRepository.Update(bid);
+            var activity = _activityRepository.GetActivityDescription(request.Activity);
 
-        //    return Ok();
-        //}
-        //[HttpGet("activities")]
-        //public async Task<ActionResult<List<ActivityResponse>>> GetAllActivities()
-        //{
-        //    _logger.LogInformation("GET request received");
-        //    var activites = await _activityRepository.GetListOfActivity();
-        //    if (activites == null)
-        //    {
-        //        return NotFound("Активность не найдена");
-        //    }
-        //    return Ok(activites);
-        //}
+            if (activity == null)
+            {
+                return BadRequest("Указанной активности не существует");
+            }
+
+            application.Activity = request.Activity;
+            application.Name = request.Name;
+            application.Description = request.Description;
+            application.Outline = request.Outline;
+             
+            await _applicationRepository.UpdateDataAsync(application);
+
+            return Ok(new
+            {
+                id = application.Id,
+                author = application.Author,
+                activity = application.Activity,
+                name = application.Name,
+                description = application.Description,
+                outline = application.Outline
+            });
+        }
 
 
+        [HttpGet("activities")]
+        public async Task<ActionResult<List<ActivityResponse>>> GetAllActivitiesAsync()
+        {
+            _logger.LogInformation("GET request received");
+            var activites = await _activityRepository.GetListOfActivityWithDescription();
+            if (activites == null)
+            {
+                return NotFound("Активность не найдена");
+            }
+            return Ok(activites);
+        }
     }
 }

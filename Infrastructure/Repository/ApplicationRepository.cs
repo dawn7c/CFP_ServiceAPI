@@ -3,6 +3,7 @@ using CfpService.Domain.Models;
 using Domain.Abstractions;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 
 namespace Infrastructure.Repository
@@ -27,13 +28,13 @@ namespace Infrastructure.Repository
         public async Task CreateApplicationAsync(Application entity)
         {
             _dbSet.Add(entity);
-            await _context.SaveChangesAsync().ConfigureAwait(false); ;
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(Application entity)
         {
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync().ConfigureAwait(false);
+            await _context.SaveChangesAsync();
         }
 
 
@@ -63,16 +64,21 @@ namespace Infrastructure.Repository
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<bool> Update(Application entity)
+        public async Task<bool> UpdateDataAsync(Application entity)
         {
             if (!await IsExist(entity))
             {
                 return false;
             }
+            //entity.UpdateApplication(entity.Name,entity.Description,entity.Outline);
+
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
             return true;
         }
 
-    }
+        
+        
+
+   }
 }
