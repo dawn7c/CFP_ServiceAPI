@@ -42,7 +42,6 @@ namespace Web.Controllers
         [HttpGet("applications/submitted")]
         public async Task<ActionResult<List<ApplicationCreateRequest>>> GetApplicationsSubmittedAfterAsync([FromQuery] DateTime submittedAfter)
         {
-
             var applications = await _applicationRepository.ApplicationsSubmittedAfterAsync(submittedAfter);
             var res = applications.Select(application => _mappingService.MapToApplicationResponse(application)).ToList();
             return Ok(res);
@@ -86,7 +85,6 @@ namespace Web.Controllers
         [HttpPost("applications/{id}/submit")]
         public async Task<IActionResult> PostApplicationAsync(Guid id)
         {
-            
             var application = await _applicationRepository.ApplicationByIdAsync(id);
             var validationResult = _validator.CheckForNull(application);
             if (!validationResult.IsValid)
@@ -104,7 +102,6 @@ namespace Web.Controllers
         [HttpDelete("applications/{id}")]
         public async Task<IActionResult> DeleteApplicationAsync(Guid id)
         {
-            
             var application = await _applicationRepository.ApplicationByIdAsync(id);
             var validationResult = _validator.CheckForNull(application);
             if (!validationResult.IsValid)
@@ -119,7 +116,6 @@ namespace Web.Controllers
         [HttpPut("applications/{id}")]
         public async Task<IActionResult> UpdateApplicationAsync(Guid id, [FromBody] ApplicationUpdateRequest request)
         {
-            
             var application = await _applicationRepository.ApplicationByIdAsync(id);
             var validationResult = _validator.CheckForNull(application);
             if (!validationResult.IsValid)
@@ -136,7 +132,6 @@ namespace Web.Controllers
         [HttpGet("activities")]
         public async Task<ActionResult<List<ActivityResponse>>> GetAllActivitiesAsync()
         {
-            
             var activites = await _activityRepository.ListOfActivityWithDescriptionAsync();
             return Ok(activites);
         }
