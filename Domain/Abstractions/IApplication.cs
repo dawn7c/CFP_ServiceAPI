@@ -9,11 +9,11 @@ namespace Domain.Abstractions
         Task CreateApplicationAsync(Application entity);
         Task<bool> UpdateDataAsync(Application entity);
         Task Delete(Application entity);
-        Task<List<Application>> GetBidAfterDate(DateTime date);
-        Task<List<Application>> GetNotSubAfterDate(DateTime date);
-        Task<Application> GetApplicationId(Guid id);
-        Task<Application> GetNotSendedApplicationByUser(Guid id);
-        Task<bool> CheckUnSendedApplication(Guid id);
+        Task<List<Application>> ApplicationsSubmittedAfterAsync(DateTime date);
+        Task<List<Application>> UnsubmittedApplicationsOlderThanDate(DateTime date);
+        Task<Application> ApplicationByIdAsync(Guid id);
+        Task<Application> CurrentUnsubmittedApplicationByUserAsync(Guid id);
+        Task<bool> HasUserSubmittedApplicationAsync(Guid id);
        
     }
 }

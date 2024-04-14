@@ -5,7 +5,7 @@ namespace Domain.Abstractions
 {
     public interface IActivity
     {
-        Task<List<object>> GetListOfActivityWithDescription();
-        string GetActivityDescription(Activity activity);
+        Task<List<object>> ListOfActivityWithDescriptionAsync();
+        string ActivityDescription(Activity activity);
     }
 }

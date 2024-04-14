@@ -29,11 +29,11 @@ namespace CfpService.Domain.Models
         public string? Description {  get;  set; }
         public string Outline { get;  set; }
 
-        [JsonIgnore]
+        
         public DateTime CreateDateTime { get; private set; }
-        [JsonIgnore]
+        
         public bool IsSend { get;   set; }
-        [JsonIgnore]
+        
         public DateTime? SendDateTime {  get;   set; }
     }
 }

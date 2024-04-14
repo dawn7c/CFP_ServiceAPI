@@ -14,20 +14,20 @@ namespace CfpService.DataAccess.ActivityRepository
     public class ActivityRepository : IActivity
     {
 
-        public async Task<List<object>> GetListOfActivityWithDescription()
+        public async Task<List<object>> ListOfActivityWithDescriptionAsync()
         {
             var activities = new List<object>();
 
             foreach (Activity activity in Enum.GetValues(typeof(Activity)))
             {
-                string description = GetActivityDescription(activity);
+                string description = ActivityDescription(activity);
                 activities.Add(new { activity = activity.ToString(), description });
             }
 
             return activities;
         }
 
-        public string GetActivityDescription(Activity activity)
+        public string ActivityDescription(Activity activity)
         {
             switch (activity)
             {

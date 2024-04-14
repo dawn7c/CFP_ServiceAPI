@@ -38,28 +38,28 @@ namespace Infrastructure.Repository
         }
 
 
-        public async Task<List<Application>> GetBidAfterDate(DateTime date)
+        public async Task<List<Application>> ApplicationsSubmittedAfterAsync(DateTime date)
         {
             return await _dbSet.Where(b => b.SendDateTime > date.ToUniversalTime()).ToListAsync();
         }
 
-        public async Task<List<Application>> GetNotSubAfterDate(DateTime date)
+        public async Task<List<Application>> UnsubmittedApplicationsOlderThanDate(DateTime date)
         {
             return await _dbSet.Where(b => b.CreateDateTime > date.ToUniversalTime() && !b.IsSend).ToListAsync();
         }
 
-        public async Task<Application> GetNotSendedApplicationByUser(Guid id)
+        public async Task<Application> CurrentUnsubmittedApplicationByUserAsync(Guid id)
         {
             return await _dbSet.Where(b => b.Author == id && !b.IsSend).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> CheckUnSendedApplication(Guid id)
+        public async Task<bool> HasUserSubmittedApplicationAsync(Guid id)
         {
              var bids = await _dbSet.Where(b => b.Author == id && !b.IsSend).ToListAsync();
              return bids.Count() > 1 ? false : true;
         }
 
-        public async Task<Application> GetApplicationId(Guid id)
+        public async Task<Application> ApplicationByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
