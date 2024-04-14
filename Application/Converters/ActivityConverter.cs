@@ -1,12 +1,6 @@
 ﻿using Domain.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CfpService.Application.Convertors
 {
@@ -20,14 +14,21 @@ namespace CfpService.Application.Convertors
                 throw new JsonException($"Unexpected token type: {reader.TokenType}");
             }
             string value = reader.GetString();
+
+
             if (Enum.TryParse<Activity>(value, true, out Activity result))
             {
-                return result;
+                if (Enum.IsDefined(typeof(Activity), result))
+                {
+                    return result;
+                }
+                else
+                {
+                    throw new JsonException($"Invalid value: '{value}' is not a valid {typeof(Activity).Name}");
+                }
             }
-
             throw new JsonException($"Unable to parse '{value}' to {typeof(Activity).Name}");
         }
-
         public override void Write(Utf8JsonWriter writer, Activity value, JsonSerializerOptions options)
         {
             writer.WriteStringValue(value.ToString());

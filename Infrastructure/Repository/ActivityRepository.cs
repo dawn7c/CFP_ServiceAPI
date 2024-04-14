@@ -1,13 +1,5 @@
-﻿using CfpService.Application.Convertors;
-using Domain.Abstractions;
+﻿using Domain.Abstractions;
 using Domain.Models;
-using Infrastructure.DatabaseContext;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CfpService.DataAccess.ActivityRepository
 {
@@ -27,7 +19,7 @@ namespace CfpService.DataAccess.ActivityRepository
             return activities;
         }
 
-        public string ActivityDescription(Activity activity)
+        private string ActivityDescription(Activity activity)
         {
             switch (activity)
             {
@@ -41,6 +33,5 @@ namespace CfpService.DataAccess.ActivityRepository
                     return string.Empty;
             }
         }
-
     }
 }

@@ -1,6 +1,4 @@
-﻿
-using Domain.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using Domain.Models;
 
 namespace Web.Models
 {

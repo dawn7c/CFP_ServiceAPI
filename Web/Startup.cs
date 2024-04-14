@@ -3,9 +3,6 @@ using Infrastructure.DatabaseContext;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Serilog;
-using Infrastructure.LoggerConfig;
-using Microsoft.Extensions.Configuration;
 using CfpService.Application.Convertors;
 using CfpService.DataAccess.ActivityRepository;
 
@@ -22,11 +19,7 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            CustomLogger.ConfigureLogger();
-            services.AddLogging(builder =>
-            {
-                builder.AddSerilog();
-            });
+            
             services.AddControllers()
                .AddJsonOptions(options =>
                {

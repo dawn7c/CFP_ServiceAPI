@@ -1,10 +1,8 @@
-﻿
-using CfpService.Domain.Models;
+﻿using CfpService.Domain.Models;
 using Domain.Abstractions;
+using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
-
 
 namespace Infrastructure.Repository
 {
@@ -37,7 +35,6 @@ namespace Infrastructure.Repository
             await _context.SaveChangesAsync();
         }
 
-
         public async Task<List<Application>> ApplicationsSubmittedAfterAsync(DateTime date)
         {
             return await _dbSet.Where(b => b.SendDateTime > date.ToUniversalTime()).ToListAsync();
@@ -48,7 +45,7 @@ namespace Infrastructure.Repository
             return await _dbSet.Where(b => b.CreateDateTime > date.ToUniversalTime() && !b.IsSend).ToListAsync();
         }
 
-        public async Task<Application> CurrentUnsubmittedApplicationByUserAsync(Guid id)
+        public async Task<Application?> CurrentUnsubmittedApplicationByUserAsync(Guid id)
         {
             return await _dbSet.Where(b => b.Author == id && !b.IsSend).FirstOrDefaultAsync();
         }
@@ -56,7 +53,7 @@ namespace Infrastructure.Repository
         public async Task<bool> HasUserSubmittedApplicationAsync(Guid id)
         {
              var bids = await _dbSet.Where(b => b.Author == id && !b.IsSend).ToListAsync();
-             return bids.Count() > 1 ? false : true;
+             return bids.Count() > 0 ? false : true;
         }
 
         public async Task<Application> ApplicationByIdAsync(Guid id)
@@ -70,15 +67,17 @@ namespace Infrastructure.Repository
             {
                 return false;
             }
-            //entity.UpdateApplication(entity.Name,entity.Description,entity.Outline);
-
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
             return true;
         }
 
-        
-        
-
-   }
+        public void UpdateApplicationProperties(Application application, Activity activity, string name, string description, string outline)
+        {
+            application.Activity = activity;
+            application.Name = name;
+            application.Description = description;
+            application.Outline = outline;
+        }
+    }
 }

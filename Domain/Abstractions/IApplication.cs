@@ -1,5 +1,4 @@
-﻿
-using CfpService.Domain.Models;
+﻿using Domain.Models;
 using Application = CfpService.Domain.Models.Application;
 
 namespace Domain.Abstractions
@@ -14,6 +13,6 @@ namespace Domain.Abstractions
         Task<Application> ApplicationByIdAsync(Guid id);
         Task<Application> CurrentUnsubmittedApplicationByUserAsync(Guid id);
         Task<bool> HasUserSubmittedApplicationAsync(Guid id);
-       
+        void UpdateApplicationProperties(Application application, Activity activity, string name, string description, string outline);
     }
 }
