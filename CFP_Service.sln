@@ -6,18 +6,22 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Domain", "CfpService.Domain\CfpService.Domain.csproj", "{8D3AF353-E200-4281-A938-E48A30414A6E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Application", "CfpService.Application\CfpService.Application.csproj", "{7D9D9192-5F3C-434B-A1CE-FC5D83F0C636}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D3AF353-E200-4281-A938-E48A30414A6E} = {8D3AF353-E200-4281-A938-E48A30414A6E}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.DataAccess", "Infrastructure\CfpService.DataAccess.csproj", "{3617F16A-1379-4A9F-B4C1-BF0CCDB98578}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.DataAccess", "CfpService.DataAccess\CfpService.DataAccess.csproj", "{3617F16A-1379-4A9F-B4C1-BF0CCDB98578}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7D9D9192-5F3C-434B-A1CE-FC5D83F0C636} = {7D9D9192-5F3C-434B-A1CE-FC5D83F0C636}
 		{8D3AF353-E200-4281-A938-E48A30414A6E} = {8D3AF353-E200-4281-A938-E48A30414A6E}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Api", "Web\CfpService.Api.csproj", "{3E3206D8-1A3D-4FD4-9667-F497CB8ED1BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Api", "CfpService.Api\CfpService.Api.csproj", "{3E3206D8-1A3D-4FD4-9667-F497CB8ED1BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Tests", "CfpService.Tests\CfpService.Tests.csproj", "{FB1C4DF1-3FDD-45D2-8798-30651FACB57E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7D9D9192-5F3C-434B-A1CE-FC5D83F0C636} = {7D9D9192-5F3C-434B-A1CE-FC5D83F0C636}
+		{8D3AF353-E200-4281-A938-E48A30414A6E} = {8D3AF353-E200-4281-A938-E48A30414A6E}
 	EndProjectSection
 EndProject
 Global
