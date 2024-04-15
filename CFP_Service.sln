@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Domain", "Domain\CfpService.Domain.csproj", "{8D3AF353-E200-4281-A938-E48A30414A6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Domain", "CfpService.Domain\CfpService.Domain.csproj", "{8D3AF353-E200-4281-A938-E48A30414A6E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Application", "Application\CfpService.Application.csproj", "{7D9D9192-5F3C-434B-A1CE-FC5D83F0C636}"
 EndProject
