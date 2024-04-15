@@ -1,36 +1,38 @@
 ﻿using CfpService.Domain.Models;
+using Domain.Models;
 using Infrastructure.DatabaseContext;
+using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
-
 namespace CFP_Tests.InfrastructureTests
 {
-    //public class ApplicationRepositoryTests
-    //{
-    //    [Fact]
-    //    public async Task CreateBidAsyncTest()
-    //    {
+    public class ApplicationRepositoryTests
+    {
+        [Fact]
+        public async Task CreateBidAsyncTest()
+        {
+
+            var mockDbSet = new Mock<DbSet<Application>>();
+            var mockContext = new Mock<ApplicationContext>();
+
+            mockContext.Setup(c => c.Set<Application>()).Returns(mockDbSet.Object);
+
+            var repository = new ApplicationRepository(mockContext.Object);
+
+            var application = new Application {
+                Id = Guid.NewGuid(),
+                Author = Guid.NewGuid(),
+                Activity = Activity.Masterclass,
+                Name = "Example Application",
+                Description = "Example Description",
+                Outline = "Example Outline",
+            };
             
-    //        var applications = new List<Application>();
-    //        var mockDbSet = new Mock<DbSet<Application>>();
-    //        mockDbSet.As<IQueryable<Application>>().Setup(m => m.Provider).Returns(applications.AsQueryable().Provider);
-    //        mockDbSet.As<IQueryable<Application>>().Setup(m => m.Expression).Returns(applications.AsQueryable().Expression);
-    //        mockDbSet.As<IQueryable<Application>>().Setup(m => m.ElementType).Returns(applications.AsQueryable().ElementType);
-    //        mockDbSet.As<IQueryable<Application>>().Setup(m => m.GetEnumerator()).Returns(applications.GetEnumerator());
+            await repository.CreateApplicationAsync(application);
 
-    //        var mockContext = new Mock<ApplicationContext>();
-    //        mockContext.Setup(c => c.Set<Application>()).Returns(mockDbSet.Object);
-
-    //        var repository = new ApplicationRepository<Domain.Models.Application>(mockContext.Object);
-    //        var bid = new Application();
-
-            
-    //        await repository.CreateBidAsync(bid);
-
-            
-    //        mockDbSet.Verify(m => m.Add(bid), Times.Once);
-    //        mockContext.Verify(m => m.SaveChangesAsync(CancellationToken.None), Times.Once);
-    //    }
-    //}
+            mockDbSet.Verify(m => m.Add(It.IsAny<Application>()), Times.Once);
+            mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
+        }
+    }
 }

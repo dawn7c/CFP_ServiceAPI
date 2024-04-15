@@ -11,7 +11,7 @@ namespace CfpService.Application.Convertors
 
             if (reader.TokenType != JsonTokenType.String)
             {
-                throw new JsonException($"Unexpected token type: {reader.TokenType}");
+                throw new JsonException($"Неожиданный тип токена: {reader.TokenType}");
             }
             string value = reader.GetString();
 
@@ -24,10 +24,10 @@ namespace CfpService.Application.Convertors
                 }
                 else
                 {
-                    throw new JsonException($"Invalid value: '{value}' is not a valid {typeof(Activity).Name}");
+                    throw new JsonException($"Недопустимое значение: '{value}' не является допустимым {typeof(Activity).Name}");
                 }
             }
-            throw new JsonException($"Unable to parse '{value}' to {typeof(Activity).Name}");
+            throw new JsonException($"Невозможно преобразовать '{value}' в {typeof(Activity).Name}");
         }
         public override void Write(Utf8JsonWriter writer, Activity value, JsonSerializerOptions options)
         {

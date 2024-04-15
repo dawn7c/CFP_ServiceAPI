@@ -59,12 +59,27 @@
 
         public ValidationResult ValidateRequiredFields(Domain.Models.Application application)
         {
+            ValidationResult nameValidationResult = ValidateNullOrEmpty(application.Name, "Name");
+            ValidationResult outlineValidationResult = ValidateNullOrEmpty(application.Outline, "Outline");
+
             if (string.IsNullOrEmpty(application.Name) || string.IsNullOrEmpty(application.Outline))
             {
-                return new ValidationResult(false, "Заявка должна содержать заполненные поля Author,Activity,Name и Outline перед отправкой на рассмотрение.");
+                return new ValidationResult(false, "Заявка должна содержать заполненные поля: Author, Activity, Name и Outline перед отправкой на рассмотрение.");
             }
             return new ValidationResult(true, "Валидация прошла успешно");
         }
+
+        public ValidationResult ValidateNullOrEmpty(string fieldValue, string fieldName)
+        {
+            fieldValue = fieldValue?.Trim();
+            if (string.IsNullOrWhiteSpace(fieldValue))
+            {
+                return new ValidationResult(false, $"Поле {fieldName} должно быть заполнено перед отправкой на рассмотрение.");
+            }
+            return new ValidationResult(true, $"Поле {fieldName} прошло успешную валидацию.");
+        }
+
+
     }
 
 }

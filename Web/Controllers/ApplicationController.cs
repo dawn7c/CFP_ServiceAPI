@@ -6,7 +6,6 @@ using Infrastructure.DatabaseContext;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
-
 namespace Web.Controllers
 {
 
@@ -89,6 +88,7 @@ namespace Web.Controllers
             var validationResult = _validator.CheckForNull(application);
             if (!validationResult.IsValid)
                 return NotFound(validationResult.ErrorMessage);
+            
             validationResult = _validator.ValidateRequiredFields(application);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.ErrorMessage);
