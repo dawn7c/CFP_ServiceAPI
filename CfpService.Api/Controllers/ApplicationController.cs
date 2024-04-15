@@ -1,12 +1,12 @@
 ﻿using CfpService.Api.Mapping;
 using CfpService.Api.Models;
+using CfpService.DataAccess.DatabaseContext;
 using CfpService.Application.Validation;
-using Domain.Abstractions;
-using Infrastructure.DatabaseContext;
+using CfpService.Domain.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Web.Models;
+using CfpService.Api.Models;
 
-namespace Web.Controllers
+namespace CfpService.Api.Controllers
 {
 
     [ApiController]

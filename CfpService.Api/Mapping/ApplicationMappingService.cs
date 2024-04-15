@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Web.Models;
+using CfpService.Api.Models;
 
 namespace CfpService.Api.Mapping
 {

@@ -20,9 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\CfpService.Application.csproj" />
-    <ProjectReference Include="..\Domain\CfpService.Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\CfpService.DataAccess.csproj" />
+    <ProjectReference Include="..\CfpService.DataAccess\CfpService.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

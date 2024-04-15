@@ -1,11 +1,11 @@
 ﻿using CfpService.Domain.Models;
-using Domain.Models;
-using Infrastructure.DatabaseContext;
-using Infrastructure.Repository;
+using CfpService.DataAccess.DatabaseContext;
+using CfpService.DataAccess.ApplicationRepository;
+using CfpService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
-namespace CFP_Tests.InfrastructureTests
+namespace CfpService.DataAccessTests
 {
     public class ApplicationRepositoryTests
     {
@@ -13,11 +13,11 @@ namespace CFP_Tests.InfrastructureTests
         public async Task CreateBidAsyncTest()
         {
 
-            var mockDbSet = new Mock<DbSet<Application>>();
+            var mockDbSet = new Mock<DbSet<CfpService.Domain.Models.Application>>();
             var mockContext = new Mock<ApplicationContext>();
-            mockContext.Setup(c => c.Set<Application>()).Returns(mockDbSet.Object);
+            mockContext.Setup(c => c.Set<CfpService.Domain.Models.Application>()).Returns(mockDbSet.Object);
             var repository = new ApplicationRepository(mockContext.Object);
-            var application = new Application {
+            var application = new CfpService.Domain.Models.Application {
                 Id = Guid.NewGuid(),
                 Author = Guid.NewGuid(),
                 Activity = Activity.Masterclass,
@@ -28,7 +28,7 @@ namespace CFP_Tests.InfrastructureTests
             
             await repository.CreateApplicationAsync(application);
 
-            mockDbSet.Verify(m => m.Add(It.IsAny<Application>()), Times.Once);
+            mockDbSet.Verify(m => m.Add(It.IsAny<CfpService.Domain.Models.Application>()), Times.Once);
             mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
         }
     }

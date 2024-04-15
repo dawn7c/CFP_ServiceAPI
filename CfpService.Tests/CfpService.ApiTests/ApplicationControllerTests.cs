@@ -1,13 +1,12 @@
 ﻿using CfpService.Api.Mapping;
 using CfpService.Application.Validation;
-using CfpService.Domain.Models;
-using Domain.Abstractions;
-using Infrastructure.DatabaseContext;
+using CfpService.Domain.Abstractions;
+using CfpService.DataAccess.DatabaseContext;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Web.Controllers;
+using CfpService.Api.Controllers;
 
-namespace CFP_Tests.WebTests
+namespace CfpService.ApiTests
 {
     public class ApplicationControllerTests
     {
@@ -18,7 +17,7 @@ namespace CFP_Tests.WebTests
             var mockApplicationRepository = new Mock<IApplication>();
             var mockActivityRepository = new Mock<IActivity>();
             var mockContext = new Mock<ApplicationContext>();
-            mockApplicationRepository.Setup(repo => repo.ApplicationByIdAsync(id)).ReturnsAsync((Application)null);
+            mockApplicationRepository.Setup(repo => repo.ApplicationByIdAsync(id)).ReturnsAsync((CfpService.Domain.Models.Application)null);
             var validator = new ApplicationValidator(); 
             var mappingService = new ApplicationMappingService(); 
             var controller = new ApplicationController(mockContext.Object, mockApplicationRepository.Object, mockActivityRepository.Object);

@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CfpService.Api\CfpService.Api.csproj" />
+    <ProjectReference Include="..\CfpService.Application\CfpService.Application.csproj" />
+    <ProjectReference Include="..\CfpService.DataAccess\CfpService.DataAccess.csproj" />
+    <ProjectReference Include="..\CfpService.Domain\CfpService.Domain.csproj" />
     <ProjectReference Include="..\Domain\CfpService.Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\CfpService.DataAccess.csproj" />
     <ProjectReference Include="..\Web\CfpService.Api.csproj" />

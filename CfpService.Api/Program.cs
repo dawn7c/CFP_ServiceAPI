@@ -1,4 +1,4 @@
-namespace Web
+namespace CfpService.Api
 {
     public class Program
     {

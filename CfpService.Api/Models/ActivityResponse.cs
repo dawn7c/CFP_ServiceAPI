@@ -1,4 +1,4 @@
-﻿namespace Web.Models
+﻿namespace CfpService.Api.Models
 {
     public class ActivityResponse
     {

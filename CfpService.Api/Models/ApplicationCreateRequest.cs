@@ -1,6 +1,6 @@
-﻿using Domain.Models;
+﻿using CfpService.Domain.Models;
 
-namespace Web.Models
+namespace CfpService.Api.Models
 {
     public class ApplicationCreateRequest
     {

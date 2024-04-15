@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\CfpService.Domain.csproj" />
+    <ProjectReference Include="..\CfpService.Domain\CfpService.Domain.csproj" />
   </ItemGroup>
 
 </Project>

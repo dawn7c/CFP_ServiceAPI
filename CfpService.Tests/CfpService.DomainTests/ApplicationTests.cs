@@ -1,7 +1,7 @@
 using CfpService.Domain.Models;
-using Domain.Models;
 
-namespace CFP_Tests.DomainTests
+
+namespace CfpService.DomainTests
 {
     public class ApplicationTests
     {
@@ -16,7 +16,7 @@ namespace CFP_Tests.DomainTests
             var outline = "Test Outline";
             var expectedCreateDateTime = DateTime.UtcNow;
 
-            var application = new Application(author, activity, name, description, outline);
+            var application = new CfpService.Domain.Models.Application(author, activity, name, description, outline);
 
             Assert.Equal(author, application.Author);
             Assert.Equal(activity, application.Activity);

@@ -1,7 +1,7 @@
-﻿using CfpService.Domain.Models;
+﻿
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.DatabaseContext
+namespace CfpService.DataAccess.DatabaseContext
 {
     public class ApplicationContext : DbContext
     {
@@ -13,7 +13,7 @@ namespace Infrastructure.DatabaseContext
             Database.EnsureCreated();
         }
 
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<CfpService.Domain.Models.Application> Applications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

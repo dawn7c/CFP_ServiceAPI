@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using CfpService.Domain.Models;
 
 namespace CfpService.Api.Models
 {

@@ -1,12 +1,12 @@
-﻿using Domain.Abstractions;
-using Infrastructure.DatabaseContext;
-using Infrastructure.Repository;
+﻿using CfpService.Domain.Abstractions;
+using CfpService.DataAccess.ActivityRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using CfpService.Application.Convertors;
-using CfpService.DataAccess.ActivityRepository;
+using CfpService.DataAccess.ApplicationRepository;
+using CfpService.DataAccess.DatabaseContext;
 
-namespace Web
+namespace CfpService.Api
 {
     public class Startup
     {

@@ -1,5 +1,5 @@
-﻿using Domain.Abstractions;
-using Domain.Models;
+﻿using CfpService.Domain.Abstractions;
+using CfpService.Domain.Models;
 
 namespace CfpService.DataAccess.ActivityRepository
 {

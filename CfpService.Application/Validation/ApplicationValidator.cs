@@ -2,7 +2,7 @@
 {
     public class ApplicationValidator
     {
-        public ValidationResult CheckForNull(Domain.Models.Application application)
+        public ValidationResult CheckForNull(CfpService.Domain.Models.Application application)
         {
             if (application == null)
             {

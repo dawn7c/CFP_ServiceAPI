@@ -1,4 +1,4 @@
-﻿namespace Domain.Models
+﻿namespace CfpService.Domain.Models
 {
     public enum Activity
     {
