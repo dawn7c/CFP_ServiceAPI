@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.DataAccess", "In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Api", "Web\CfpService.Api.csproj", "{3E3206D8-1A3D-4FD4-9667-F497CB8ED1BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Tests", "CFP_Tests\CfpService.Tests.csproj", "{FB1C4DF1-3FDD-45D2-8798-30651FACB57E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CfpService.Tests", "CfpService.Tests\CfpService.Tests.csproj", "{FB1C4DF1-3FDD-45D2-8798-30651FACB57E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7D9D9192-5F3C-434B-A1CE-FC5D83F0C636} = {7D9D9192-5F3C-434B-A1CE-FC5D83F0C636}
 	EndProjectSection
