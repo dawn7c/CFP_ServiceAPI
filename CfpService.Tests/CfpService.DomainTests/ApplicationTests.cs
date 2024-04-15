@@ -1,6 +1,5 @@
 using CfpService.Domain.Models;
 
-
 namespace CfpService.DomainTests
 {
     public class ApplicationTests
@@ -8,7 +7,6 @@ namespace CfpService.DomainTests
         [Fact]
         public void ApplicationConstructorSetsPropertiesCorrectly()
         {
-            
             var author = Guid.NewGuid();
             var activity = Activity.Report;
             var name = "Test Application";

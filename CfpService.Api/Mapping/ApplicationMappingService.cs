@@ -11,8 +11,8 @@ namespace CfpService.Api.Mapping
         {
             var configuration = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Domain.Models.Application, ApplicationResponse>();
-                cfg.CreateMap<Domain.Models.Application, ApplicationCreateRequest>();
+                cfg.CreateMap<CfpService.Domain.Models.Application, ApplicationResponse>();
+                cfg.CreateMap<CfpService.Domain.Models.Application, ApplicationCreateRequest>();
             });
             _mapper = configuration.CreateMapper();
         }

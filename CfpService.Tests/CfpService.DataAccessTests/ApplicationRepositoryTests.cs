@@ -1,7 +1,6 @@
 ﻿using CfpService.Domain.Models;
 using CfpService.DataAccess.DatabaseContext;
 using CfpService.DataAccess.ApplicationRepository;
-using CfpService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -12,7 +11,6 @@ namespace CfpService.DataAccessTests
         [Fact]
         public async Task CreateBidAsyncTest()
         {
-
             var mockDbSet = new Mock<DbSet<CfpService.Domain.Models.Application>>();
             var mockContext = new Mock<ApplicationContext>();
             mockContext.Setup(c => c.Set<CfpService.Domain.Models.Application>()).Returns(mockDbSet.Object);

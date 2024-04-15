@@ -4,7 +4,6 @@ using CfpService.DataAccess.DatabaseContext;
 using CfpService.Application.Validation;
 using CfpService.Domain.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using CfpService.Api.Models;
 
 namespace CfpService.Api.Controllers
 {

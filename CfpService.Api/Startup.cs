@@ -38,6 +38,7 @@ namespace CfpService.Api
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseNpgsql(connectionString));
         }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

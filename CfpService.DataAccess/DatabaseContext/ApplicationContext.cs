@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CfpService.DataAccess.DatabaseContext
 {
@@ -8,6 +7,7 @@ namespace CfpService.DataAccess.DatabaseContext
         public ApplicationContext()
         {
         }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureCreated();

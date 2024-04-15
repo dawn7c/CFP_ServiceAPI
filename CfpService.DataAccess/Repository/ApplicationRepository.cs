@@ -3,7 +3,6 @@ using CfpService.DataAccess.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using CfpService.Domain.Abstractions;
 
-
 namespace CfpService.DataAccess.ApplicationRepository
 {
    public class ApplicationRepository : IApplication

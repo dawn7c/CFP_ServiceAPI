@@ -8,7 +8,6 @@ namespace CfpService.Application.Convertors
     {
         public override Activity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-
             if (reader.TokenType != JsonTokenType.String)
             {
                 throw new JsonException($"Неожиданный тип токена: {reader.TokenType}");
@@ -28,6 +27,7 @@ namespace CfpService.Application.Convertors
             }
             throw new JsonException($"Невозможно преобразовать '{value}' в {typeof(Activity).Name}");
         }
+
         public override void Write(Utf8JsonWriter writer, Activity value, JsonSerializerOptions options)
         {
             writer.WriteStringValue(value.ToString());

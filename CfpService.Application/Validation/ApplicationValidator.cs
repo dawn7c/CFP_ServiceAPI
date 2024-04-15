@@ -24,7 +24,6 @@
                 application.SendDateTime = DateTime.UtcNow;
                 return new ValidationResult(true,"Валидация пройдена успешно");
             }
-
         }
 
         public ValidationResult CheckForNullForCreateApplication(bool application)
@@ -79,5 +78,4 @@
             return new ValidationResult(true, $"Поле {fieldName} прошло успешную валидацию.");
         }
     }
-
 }
