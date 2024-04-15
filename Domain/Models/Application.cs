@@ -4,7 +4,6 @@ namespace CfpService.Domain.Models
 {
     public class Application 
     {
-        
         public Application()
         {
         }

@@ -15,7 +15,6 @@ namespace CfpService.Application.Convertors
             }
             string value = reader.GetString();
 
-
             if (Enum.TryParse<Activity>(value, true, out Activity result))
             {
                 if (Enum.IsDefined(typeof(Activity), result))

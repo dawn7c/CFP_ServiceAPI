@@ -1,6 +1,5 @@
 ﻿using CfpService.Application.Validation;
 
-
 namespace CfpService.Tests.CfpService.ApplicationTests
 {
     public class ApplicationTests

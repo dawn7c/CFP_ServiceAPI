@@ -15,7 +15,6 @@ namespace CfpService.DataAccess.ActivityRepository
                 string description = ActivityDescription(activity);
                 activities.Add(new { activity = activity.ToString(), description });
             }
-
             return activities;
         }
 

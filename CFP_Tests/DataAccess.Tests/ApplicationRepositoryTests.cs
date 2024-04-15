@@ -15,11 +15,8 @@ namespace CFP_Tests.InfrastructureTests
 
             var mockDbSet = new Mock<DbSet<Application>>();
             var mockContext = new Mock<ApplicationContext>();
-
             mockContext.Setup(c => c.Set<Application>()).Returns(mockDbSet.Object);
-
             var repository = new ApplicationRepository(mockContext.Object);
-
             var application = new Application {
                 Id = Guid.NewGuid(),
                 Author = Guid.NewGuid(),

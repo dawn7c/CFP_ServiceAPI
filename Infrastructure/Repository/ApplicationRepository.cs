@@ -79,5 +79,5 @@ namespace Infrastructure.Repository
             application.Description = description;
             application.Outline = outline;
         }
-    }
+   }
 }

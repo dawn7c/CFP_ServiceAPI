@@ -13,10 +13,10 @@ namespace CfpService.Api.Mapping
             {
                 cfg.CreateMap<Domain.Models.Application, ApplicationResponse>();
                 cfg.CreateMap<Domain.Models.Application, ApplicationCreateRequest>();
-                    
             });
             _mapper = configuration.CreateMapper();
         }
+
         public ApplicationResponse MapToApplicationResponse(Domain.Models.Application application)
         {
             return _mapper.Map<ApplicationResponse>(application);
@@ -26,7 +26,5 @@ namespace CfpService.Api.Mapping
         {
             return _mapper.Map<ApplicationCreateRequest>(application);
         }
-
-        
     }
 }

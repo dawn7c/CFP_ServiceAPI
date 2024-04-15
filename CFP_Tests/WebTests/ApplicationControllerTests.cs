@@ -25,6 +25,5 @@ namespace CFP_Tests.WebTests
             var result = await controller.PostApplicationAsync(id);
             Assert.IsType<NotFoundObjectResult>(result);
         }
-
     }
 }

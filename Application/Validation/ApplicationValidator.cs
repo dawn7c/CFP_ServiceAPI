@@ -78,8 +78,6 @@
             }
             return new ValidationResult(true, $"Поле {fieldName} прошло успешную валидацию.");
         }
-
-
     }
 
 }
